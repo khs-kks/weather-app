@@ -20,7 +20,7 @@ module.exports = {
                 "@babel/preset-env",
                 {
                   targets: {
-                    browsers: "0.25%",
+                    browsers: "> 0.25%",
                     esmodules: true,
                   },
                 },
