@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  mode: "development",
   entry: "./src/index.js",
   devtool: "inline-source-map",
   output: {
@@ -21,7 +22,7 @@ module.exports = {
                 {
                   targets: {
                     browsers: ">0.25%",
-                    esmodules: true,
+                    // esmodules: true,
                   },
                 },
               ],
