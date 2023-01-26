@@ -1,0 +1,139 @@
+:root {
+    --darkgreen: #30505c;
+    --green: #45b29d;
+    --yellow: #efc94c;
+    --orange: #e27a3f;
+    --red: #df4949;
+    --light: #e5ebeb;
+    --dark: #403e39;
+    --border-radius: 5px;
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 40px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+body.show {
+    animation: fadeIn 1s ease-in;
+    animation-fill-mode: forwards;
+}
+
+.main-page-wrapper {
+    display: grid;
+    grid-template-rows: 9.5fr 0.5fr;
+    min-height: 100vh;
+    color: var(--dark);
+    background-color: var(--light);
+}
+
+main {
+    height: 80%;
+    min-width: 50%;
+    justify-self: center;
+    /* align-self: center; */
+    grid-template-rows: 0.5fr 0.5fr 2fr;
+    display: grid;
+    border: 1px solid red;
+    justify-items: center;
+}
+
+.title {
+    font-size: 3rem;
+}
+
+.results {
+    display: flex;
+    /* flex-direction: column; */
+    gap: var(--spacing-md);
+}
+
+.units {
+    padding: var(--spacing-md);
+}
+
+.units p {
+    font-size: 1.2rem;
+}
+
+h2 {
+    color: var(--green);
+}
+
+.location {
+    text-align: center;
+    font-size: 24px;
+}
+
+footer {
+    text-align: center;
+    background-color: var(--dark);
+    color: var(--light);
+    font-size: 1.2rem;
+}
+
+button {
+    background-color: var(--green);
+    color: var(--light);
+    border: none;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.2);
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+input {
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    border: none;
+    border-bottom: 2px solid var(--dark);
+    transition: border 0.5s ease-in-out;
+    outline: none;
+}
+
+input:focus {
+    border-bottom: 2px solid var(--green);
+    
+}
+
+a {
+    text-decoration: none;
+    color: var(--green);
+}
+
+
+.hidden {
+    display: none;
+    /* visibility: hidden;
+    opacity: 0;
+    transition: opacity 4s ease-in; */
+}

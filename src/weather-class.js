@@ -19,6 +19,6 @@ export default class Weather {
     this.humidity = weatherCity.main.humidity;
     this.country = weatherCity.sys.country;
     this.name = weatherCity.name;
-    this.forecast = weatherCity.weather[0].description;
+    this.forecast = weatherCity.weather[0].main;
   }
 }
