@@ -8,6 +8,17 @@ export default class Weather {
     });
 
     const weatherData = await weatherPromise.json()
-    console.log(weatherData);
+    
+    return new Weather(weatherData);
+  }
+
+
+  constructor(weatherCity) {
+    this.temp = weatherCity.main.temp;
+    this.feelsLike = weatherCity.main.feels_like;
+    this.humidity = weatherCity.main.humidity;
+    this.country = weatherCity.sys.country;
+    this.name = weatherCity.name;
+    this.forecast = weatherCity.weather[0].description;
   }
 }
