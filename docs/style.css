@@ -24,6 +24,7 @@ body {
 
 body {
     opacity: 0;
+    color: var(--dark);
 }
 
 @keyframes fadeIn {
@@ -53,10 +54,8 @@ main {
     height: 80%;
     min-width: 50%;
     justify-self: center;
-    /* align-self: center; */
     grid-template-rows: 0.5fr 0.5fr 2fr;
     display: grid;
-    border: 1px solid red;
     justify-items: center;
 }
 
@@ -206,3 +205,21 @@ MODAL
     top: 0;
     left: 20px;
 }
+
+
+
+.radio-wrapper {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+}
+
+input[type="radio"]:checked+label {
+    color: var(--green);
+    transition: color 0.5s ease-in-out;
+}
+
+input[type="radio"]:checked {
+    border-color: var(--darkgreen);
+}
+
