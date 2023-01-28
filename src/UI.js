@@ -24,6 +24,8 @@ const fahrenheitSymbol = String.fromCharCode(8457);
 let weatherObject;
 
 export default class UI {
+  static temperatureUnit = "celsius";
+
   static init() {
     UI.addListeners();
   }
@@ -33,54 +35,52 @@ export default class UI {
       document.body.classList.add("show");
     });
 
-    closeModal.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+    closeModal.addEventListener("click", UI.hideModal);
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        modal.style.display = "none";
-      }
-    });
+    document.addEventListener("keydown", UI.hideModal);
 
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
+    modal.addEventListener("click", UI.hideModal);
 
     searchButton.addEventListener("click", async (event) => {
       event.preventDefault();
-      let normalizedSearch = searchBar.value
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, "+");
-
+      let normalizedSearch = UI.normalizeSearch(searchBar.value);
       if (!normalizedSearch.length) {
         normalizedSearch = "sofia";
       }
-
-      weatherObject = await Weather.getWeather(normalizedSearch);
-
-      if (weatherObject instanceof Weather) {
-        UI.render();
-      } else {
+      try {
+        weatherObject = await Weather.getWeather(normalizedSearch);
+        if (weatherObject instanceof Weather) {
+          UI.render();
+        }
+      } catch (error) {
         console.log("Weather object is not returned");
       }
     });
 
-    celsiusOption.addEventListener("click", () => {
-      if (weatherObject instanceof Weather) {
-        UI.render();
-      }
-    });
+    celsiusOption.addEventListener("click", UI.setTemperatureUnit);
 
-    fahrenheitOption.addEventListener("click", () => {
-      if (weatherObject instanceof Weather) {
-        UI.render();
-      }
-    //   UI.render();
-    });
+    fahrenheitOption.addEventListener("click", UI.setTemperatureUnit);
+  }
+
+  static hideModal(event) {
+    if (
+      event.key === "Escape" ||
+      event.target === modal ||
+      event.target === closeModal
+    ) {
+      modal.style.display = "none";
+    }
+  }
+
+  static normalizeSearch(query) {
+    return query.trim().toLowerCase().replace(/\s+/g, "+");
+  }
+
+  static setTemperatureUnit(event) {
+    if (weatherObject instanceof Weather) {
+      UI.temperatureUnit = event.target.value;
+      UI.render();
+    }
   }
 
   static celsiusToFahrenheit(tempCelsius) {
@@ -89,21 +89,30 @@ export default class UI {
   }
 
   static render() {
-    if (fahrenheitOption.checked) {
-      tempResult.textContent = "";
+    // if (fahrenheitOption.checked) {
+    //   tempResult.textContent = `${UI.celsiusToFahrenheit(
+    //     weatherObject.temp
+    //   )}${fahrenheitSymbol}`;
+
+    //   feelsResult.textContent = `${UI.celsiusToFahrenheit(
+    //     weatherObject.feelsLike
+    //   )}${fahrenheitSymbol}`;
+    // } else {
+    //   tempResult.textContent = weatherObject.temp + celsiusSymbol;
+
+    //   feelsResult.textContent = weatherObject.feelsLike + celsiusSymbol;
+    // }
+
+    if (UI.temperatureUnit === "fahrenheit") {
       tempResult.textContent = `${UI.celsiusToFahrenheit(
         weatherObject.temp
       )}${fahrenheitSymbol}`;
 
-      feelsResult.textContent = "";
       feelsResult.textContent = `${UI.celsiusToFahrenheit(
         weatherObject.feelsLike
       )}${fahrenheitSymbol}`;
     } else {
-      tempResult.textContent = "";
       tempResult.textContent = weatherObject.temp + celsiusSymbol;
-
-      feelsResult.textContent = "";
       feelsResult.textContent = weatherObject.feelsLike + celsiusSymbol;
     }
 
