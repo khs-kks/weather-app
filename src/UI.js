@@ -77,32 +77,17 @@ export default class UI {
   }
 
   static setTemperatureUnit(event) {
+    UI.temperatureUnit = event.target.value;
     if (weatherObject instanceof Weather) {
-      UI.temperatureUnit = event.target.value;
       UI.render();
     }
   }
 
   static celsiusToFahrenheit(tempCelsius) {
-    // const cleanedTemp = tempCelsius.replace(/[^\d.]/g, "");
     return ((tempCelsius * 9) / 5 + 32).toFixed(1);
   }
 
   static render() {
-    // if (fahrenheitOption.checked) {
-    //   tempResult.textContent = `${UI.celsiusToFahrenheit(
-    //     weatherObject.temp
-    //   )}${fahrenheitSymbol}`;
-
-    //   feelsResult.textContent = `${UI.celsiusToFahrenheit(
-    //     weatherObject.feelsLike
-    //   )}${fahrenheitSymbol}`;
-    // } else {
-    //   tempResult.textContent = weatherObject.temp + celsiusSymbol;
-
-    //   feelsResult.textContent = weatherObject.feelsLike + celsiusSymbol;
-    // }
-
     if (UI.temperatureUnit === "fahrenheit") {
       tempResult.textContent = `${UI.celsiusToFahrenheit(
         weatherObject.temp
@@ -118,8 +103,6 @@ export default class UI {
 
     city.textContent = weatherObject.name;
     country.textContent = weatherObject.country;
-    // tempResult.textContent = weatherObject.temp;
-    // feelsResult.textContent = weatherObject.feelsLike;
     humidityResult.textContent = weatherObject.humidity;
     skyResult.textContent = weatherObject.forecast;
   }

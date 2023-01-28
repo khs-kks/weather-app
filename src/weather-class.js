@@ -12,14 +12,19 @@ export default class Weather {
     const startTime = performance.now();
 
     try {
-      const coordinates = await fetch(
-        "../weather_testing/landstuhl-coords.json",
+      const coordinatesPromise = await fetch(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=c7ec069ee3e1e10a86949a8780463038`,
         {
           mode: "cors",
         }
       );
+      const coordinates = await coordinatesPromise.json();
+
+      const { lat } = coordinates[0];
+      const { lon } = coordinates[0];
+      
       const weatherPromise = await fetch(
-        "../weather_testing/landstuhl-data.json",
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c7ec069ee3e1e10a86949a8780463038&units=metric`,
         {
           mode: "cors",
         }
@@ -39,9 +44,8 @@ export default class Weather {
         return new Weather(weatherData);
       }
     } catch (error) {
-      console.log(error);
       document.querySelector(".modal").style.display = "block";
-      document.querySelector(".error-code").textContent = error.code;
+      document.querySelector(".error-code").textContent = "Check your spelling. No city found!";
     }
   }
 }
